@@ -12,54 +12,53 @@ import javax.crypto.spec.SecretKeySpec
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+
+    val llave_para_encriptar = "askdhjlashjdkla"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        descifrar(cifrar("Hola", "qwertyuiopasdfg"), "qwertyuiopasdfg")
+
+        binding.button.setOnClickListener{
+            val textoCifrado = cifrar(binding.editText1.text.toString())
+            binding.TextView1.text = textoCifrado
+        }
 
 
-
-
-
-
-
-
-
-
-
-    }
-    private fun cifrar(textoEnString: String, llaveEnString: String): String {
-        println("Voy a cifrar $textoEnString")
-        val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
-        cipher.init(Cipher.ENCRYPT_MODE, getKey(llaveEnString))
-        val textCifrado = Base64.getEncoder().encodeToString(cipher.doFinal(textoEnString.toByteArray(Charsets.UTF_8)))
-        println("He obtenido $textCifrado")
-        return textCifrado
-
+        binding.button2.setOnClickListener{
+            val textodescifrado = descifrar(binding.TextView1.text.toString())
+            binding.TextView2.text = textodescifrado
+        }
     }
 
+    private fun cifrar(textoparacifrar: String ): String {
+        val cipher = Cipher.getInstance(llave_para_encriptar)
+        cipher.init(Cipher.ENCRYPT_MODE, getKey(llave_para_encriptar))
+        val textCifrado = cipher.doFinal(textoparacifrar.toByteArray(Charsets.UTF_8))
+        return String (textCifrado)
+
+    }
 
     private fun getKey(llaveEnString : String): SecretKeySpec {
         var llaveUtf8 = llaveEnString.toByteArray(Charsets.UTF_8)
         val sha = MessageDigest.getInstance("SHA-1")
         llaveUtf8 = sha.digest(llaveUtf8)
-        llaveUtf8 = llaveUtf8.copyOf(16)
+        llaveUtf8 = llaveUtf8.copyOf(13)
         return SecretKeySpec(llaveUtf8, "AES")
     }
 
     @Throws(BadPaddingException::class)
-    private fun descifrar(textoCifrrado : String, llaveEnString : String) : String {
-        println("Voy a descifrar $textoCifrrado")
-        val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
-        cipher.init(Cipher.DECRYPT_MODE, getKey(llaveEnString));
-        val textDescifrado = String(cipher.doFinal(Base64.getDecoder().decode(textoCifrrado)))
-        println("He obtenido $textDescifrado")
+    private fun descifrar(textoparadescifrado : String ) : String {
+        val cipher = Cipher.getInstance(llave_para_encriptar)
+        cipher.init(Cipher.DECRYPT_MODE, getKey(llave_para_encriptar));
+        val textDescifrado = String(cipher.doFinal(Base64.getDecoder().decode(textoparadescifrado)))
         return textDescifrado
     }
 
-    }
+}
 
 
 
