@@ -18,26 +18,31 @@
         />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/TextView1"
-         />
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/TextView2"
          />
 
+
+
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonCifrar"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:text="cifrar"
         android:textColor="#000000"
         app:backgroundTint="#FF0000"
         app:iconTint="#000000" />
+
+    <TextView
+        android:id="@+id/TextView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        />
+
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonDescifrar"
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:text="Descifrar"

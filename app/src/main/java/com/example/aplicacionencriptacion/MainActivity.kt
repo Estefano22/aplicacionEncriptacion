@@ -14,7 +14,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
 
-    val llave_para_encriptar = "askdhjlashjdkla"
+    val llave_para_encriptar: String = "askdhjlashjdkla"
+    val Tipo_cifrado: String = "AES/ECB/PKCS5Padding"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,23 +23,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 
-        binding.button.setOnClickListener{
-            val textoCifrado = cifrar(binding.editText1.text.toString())
-            binding.TextView1.text = textoCifrado
+        binding.buttonCifrar.setOnClickListener{
+            val textCifrado = cifrar(binding.editText1.text.toString())
+            binding.TextView1.text = textCifrado
         }
 
 
-        binding.button2.setOnClickListener{
-            val textodescifrado = descifrar(binding.TextView1.text.toString())
-            binding.TextView2.text = textodescifrado
+        binding.buttonDescifrar.setOnClickListener{
+            val textDescifrado = descifrar(binding.TextView1.text.toString())
+            binding.TextView2.text = textDescifrado
         }
     }
 
     private fun cifrar(textoparacifrar: String ): String {
-        val cipher = Cipher.getInstance(llave_para_encriptar)
+        val cipher = Cipher.getInstance(Tipo_cifrado)
         cipher.init(Cipher.ENCRYPT_MODE, getKey(llave_para_encriptar))
-        val textCifrado = cipher.doFinal(textoparacifrar.toByteArray(Charsets.UTF_8))
-        return String (textCifrado)
+        val textCifrado = Base64.getEncoder().encodeToString(cipher.doFinal(textoparacifrar.toByteArray(Charsets.UTF_8)))
+        return textCifrado
 
     }
 
