@@ -11,7 +11,7 @@
 
     <EditText
         android:id="@+id/editText1"
-        android:text=""
+
         android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,6 +21,8 @@
         android:id="@+id/TextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="El texto se ha cifrado"
+
          />
 
 
@@ -38,7 +40,7 @@
         android:id="@+id/TextView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:text="El texto se ha descifrado"
         />
 
     <Button

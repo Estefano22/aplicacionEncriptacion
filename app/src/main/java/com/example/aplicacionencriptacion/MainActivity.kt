@@ -13,9 +13,10 @@ import javax.crypto.spec.SecretKeySpec
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-
-    val llave_para_encriptar: String = "askdhjlashjdkla"
-    val Tipo_cifrado: String = "AES/ECB/PKCS5Padding"
+companion object {
+    const val llave_para_encriptar = "12wertyu56uhj"
+    const val Tipo_cifrado = "AES/ECB/PKCS5Padding"
+}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,15 +48,15 @@ class MainActivity : AppCompatActivity() {
         var llaveUtf8 = llaveEnString.toByteArray(Charsets.UTF_8)
         val sha = MessageDigest.getInstance("SHA-1")
         llaveUtf8 = sha.digest(llaveUtf8)
-        llaveUtf8 = llaveUtf8.copyOf(13)
+        llaveUtf8 = llaveUtf8.copyOf(16)
         return SecretKeySpec(llaveUtf8, "AES")
     }
 
     @Throws(BadPaddingException::class)
-    private fun descifrar(textoparadescifrado : String ) : String {
-        val cipher = Cipher.getInstance(llave_para_encriptar)
+    private fun descifrar(textoparadescifrar : String ) : String {
+        val cipher = Cipher.getInstance(Tipo_cifrado)
         cipher.init(Cipher.DECRYPT_MODE, getKey(llave_para_encriptar));
-        val textDescifrado = String(cipher.doFinal(Base64.getDecoder().decode(textoparadescifrado)))
+        val textDescifrado = String(cipher.doFinal(Base64.getDecoder().decode(textoparadescifrar)))
         return textDescifrado
     }
 
