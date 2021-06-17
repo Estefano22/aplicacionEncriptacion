@@ -13,10 +13,10 @@ import javax.crypto.spec.SecretKeySpec
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-companion object {
-    const val llave_para_encriptar = "12wertyu56uhj"
-    const val Tipo_cifrado = "AES/ECB/PKCS5Padding"
-}
+
+val llave_para_encriptar = "12wertyu56uhj"
+val Tipo_cifrado = "AES/ECB/PKCS5Padding"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
